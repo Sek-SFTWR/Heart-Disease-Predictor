@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Зүрхний Өвчний Урьдчилсан Таамаглагч</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: inline-block;
+        width: 150px;
+        font-weight: bold;
+      }
+      input {
+        padding: 8px;
+        width: 200px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .help-text {
+        font-size: 12px;
+        color: #666;
+        margin-left: 150px;
+        margin-top: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Зүрхний Өвчний Урьдчилсан Таамаглал</h1>
+      <form action="{{ url_for('predict') }}" method="post">
+        <div class="form-group">
+          <label>Нас:</label>
+          <input type="number" name="age" required min="1" max="120" />
+          <div class="help-text">Насыг жилээр оруулна уу</div>
+        </div>
+        <div class="form-group">
+          <label>Хүйс:</label>
+          <input type="number" name="sex" min="0" max="1" required />
+          <div class="help-text">0 = Эмэгтэй, 1 = Эрэгтэй</div>
+        </div>
+        <div class="form-group">
+          <label>Цээжний Өвдөлтийн Төрөл:</label>
+          <input type="number" name="cp" min="0" max="4" required />
+          <div class="help-text">
+            0-4 (0: Ердийн ангина, 1: Ердийн бус ангина, 2: Ангина бус өвдөлт,
+            3: Өвдөлтгүй)
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Амралтын Цусны Даралт:</label>
+          <input type="number" name="trestbps" required min="50" max="300" />
+          <div class="help-text">Амралтын үеийн цусны даралт mm/Hg</div>
+        </div>
+        <div class="form-group">
+          <label>Холестерин:</label>
+          <input type="number" name="chol" required min="100" max="600" />
+          <div class="help-text">Цусан дахь холестерин mg/dl</div>
+        </div>
+        <div class="form-group">
+          <label>Өлөн Цусны Шинжилгээ:</label>
+          <input type="number" name="fbs" min="0" max="1" required />
+          <div class="help-text">0 = Худал, 1 = Үнэн (> 120 mg/dl)</div>
+        </div>
+        <div class="form-group">
+          <label>Амралтын ЭКГ:</label>
+          <input type="number" name="restecg" min="0" max="2" required />
+          <div class="help-text">
+            0: Хэвийн, 1: ST-T долгионы гажиг, 2: Зүүн ховдолын гипертрофи
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Зүрхний Хамгийн Их Хэмнэл:</label>
+          <input type="number" name="thalach" required min="50" max="250" />
+          <div class="help-text">Хамгийн их зүрхний хэмнэл</div>
+        </div>
+        <div class="form-group">
+          <label>Дасгалын Ангина:</label>
+          <input type="number" name="exang" min="0" max="1" required />
+          <div class="help-text">0 = Үгүй, 1 = Тийм</div>
+        </div>
+        <div class="form-group">
+          <label>ST Депресс:</label>
+          <input
+            type="number"
+            name="oldpeak"
+            step="0.1"
+            required
+            min="0"
+            max="10"
+          />
+          <div class="help-text">Дасгалын үеийн ST депресс</div>
+        </div>
+        <div class="form-group">
+          <label>Налуу:</label>
+          <input type="number" name="slope" min="0" max="2" required />
+          <div class="help-text">0: Дээшээ, 1: Тэгш, 2: Доошоо</div>
+        </div>
+        <div class="form-group">
+          <label>Судасны Тоо:</label>
+          <input type="number" name="ca" min="0" max="3" required />
+          <div class="help-text">Флюроскопоор тодруулсан судасны тоо (0-3)</div>
+        </div>
+        <div class="form-group">
+          <label>Тал:</label>
+          <input type="number" name="thal" min="0" max="7" required />
+          <div class="help-text">0-7: Талассемийн төрөл</div>
+        </div>
+        <button type="submit">Таамаглал Гаргах</button>
+      </form>
+    </div>
+  </body>
+</html>
