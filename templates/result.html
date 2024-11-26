@@ -1,82 +1,170 @@
 <!DOCTYPE html>
-<html>
+<html lang="mn">
   <head>
-    <title>Таамаглалын Үр Дүн</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Тамаглалын Үр Дүн</title>
     <style>
       body {
         font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f5f5f5;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        position: relative;
       }
-      .container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      header {
+        background-color: #4caf50;
+        color: white;
+        text-align: center;
+        padding: 20px 0;
       }
-      .result {
-        margin: 20px 0;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background-color: #f9f9f9;
+      h1 {
+        font-size: 36px;
+        margin: 0;
       }
-      .prediction {
-        font-size: 24px;
-        color: #2196f3;
-        margin: 20px 0;
-      }
-      .probability {
-        font-size: 18px;
-        color: #4caf50;
-        margin: 10px 0;
-      }
-      .features {
-        margin-top: 20px;
-      }
-      .feature-item {
-        margin: 5px 0;
-        padding: 5px;
-        background-color: #fff;
-        border-radius: 3px;
-      }
-      .back-button {
-        display: inline-block;
-        padding: 10px 20px;
+      .home-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
         background-color: #4caf50;
         color: white;
         border: none;
-        border-radius: 4px;
+        padding: 10px 20px;
+        font-size: 16px;
         cursor: pointer;
-        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s;
+      }
+      .home-button:hover {
+        background-color: #2407c8;
+        text: white;
+      }
+      .result-container {
+        padding: 20px;
+        max-width: 800px;
+        margin: 30px auto;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .message {
+        color: green;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .prediction-probability {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+      h2 {
+        font-size: 24px;
+        margin-top: 20px;
+        color: #333;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
         margin-top: 20px;
       }
-      .back-button:hover {
-        background-color: #45a049;
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      td {
+        font-size: 16px;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 14px;
+        color: #777;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>Таамаглалын Үр Дүн</h1>
-      <div class="result">
-        <div class="prediction">{{ message }}</div>
-        <div class="probability">Итгэлцүүр: {{ prediction }}</div>
+    <header>
+      <h1>Тамаглалын Үр Дүн</h1>
+    </header>
 
-        <div class="features">
-          <h3>Оролтын Шинж Чанарууд:</h3>
-          {% for key, value in features.items() %}
-          <div class="feature-item">
-            <strong>{{ key|title }}:</strong> {{ value }}
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      <a href="{{ url_for('home') }}" class="back-button"
-        >Өөр Таамаглал Гаргах</a
-      >
+    <button class="home-button" onclick="window.location.href='/'">Home</button>
+
+    <div class="result-container">
+      <p class="message">{{ message }}: <strong>{{ prediction }}</strong></p>
+      <p class="prediction-probability">
+        Prediction Probability: <strong>{{ prediction_probability }}</strong>
+      </p>
+
+      <h2>Оролтын Шинж Чанарууд:</h2>
+
+      <table>
+        <tr>
+          <th>Age</th>
+          <td>{{ features.age }}</td>
+        </tr>
+        <tr>
+          <th>Sex</th>
+          <td>{{ features.sex }}</td>
+        </tr>
+        <tr>
+          <th>Cp</th>
+          <td>{{ features.cp }}</td>
+        </tr>
+        <tr>
+          <th>Trestbps</th>
+          <td>{{ features.trestbps }}</td>
+        </tr>
+        <tr>
+          <th>Chol</th>
+          <td>{{ features.chol }}</td>
+        </tr>
+        <tr>
+          <th>Fbs</th>
+          <td>{{ features.fbs }}</td>
+        </tr>
+        <tr>
+          <th>Restecg</th>
+          <td>{{ features.restecg }}</td>
+        </tr>
+        <tr>
+          <th>Thalach</th>
+          <td>{{ features.thalach }}</td>
+        </tr>
+        <tr>
+          <th>Exang</th>
+          <td>{{ features.exang }}</td>
+        </tr>
+        <tr>
+          <th>Oldpeak</th>
+          <td>{{ features.oldpeak }}</td>
+        </tr>
+        <tr>
+          <th>Slope</th>
+          <td>{{ features.slope }}</td>
+        </tr>
+        <tr>
+          <th>Ca</th>
+          <td>{{ features.ca }}</td>
+        </tr>
+        <tr>
+          <th>Thal</th>
+          <td>{{ features.thal }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="footer">
+      <p>© 2024 Таамаглалын Үр Дүн. All rights reserved.</p>
     </div>
   </body>
 </html>
