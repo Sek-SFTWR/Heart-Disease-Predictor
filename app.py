@@ -3,10 +3,8 @@ import pandas as pd
 import pickle
 from sklearn.preprocessing import StandardScaler
 
-# Initialize the Flask application
 app = Flask(__name__)
 
-# Load the trained model and scaler
 model_path = "./main/svm_model.pkl"
 scaler_path = "./main/scaler.pkl"
 model, scaler = None, None
@@ -30,7 +28,7 @@ def home():
 def predict():
     try:
         if request.method == 'POST':
-            # Extract input features from form data
+        
             data = {
                 'age': float(request.form['age']),
                 'sex': float(request.form['sex']),
@@ -47,17 +45,16 @@ def predict():
                 'thal': float(request.form['thal']),
             }
 
-            # Convert data to DataFrame for prediction
             features_df = pd.DataFrame([data])
 
-            # Scale the input data
+           
             scaled_features = scaler.transform(features_df)
 
-            # Make a prediction
+           
             prediction = model.predict(scaled_features)[0]
             prediction_proba = model.predict_proba(scaled_features)[0]
 
-            # Map prediction to a human-readable message
+            
             messages = {
                 0: "No heart disease detected",
                 1: "Stage 1 heart disease detected",
@@ -67,7 +64,7 @@ def predict():
             }
             prediction_message = messages.get(prediction, "Unknown prediction")
 
-            # Prepare response data
+           
             response = {
                 'prediction': prediction,
                 'prediction_probability': f"{max(prediction_proba) * 100:.2f}%",
@@ -81,4 +78,4 @@ def predict():
         return render_template('error.html', error=str(e))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)  # Run on a public IP address and a non-default port for security
+    app.run(debug=True, host='0.0.0.0', port=5000) 
