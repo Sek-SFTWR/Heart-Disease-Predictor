@@ -47,14 +47,11 @@ def predict():
 
             features_df = pd.DataFrame([data])
 
-           
             scaled_features = scaler.transform(features_df)
 
-           
             prediction = model.predict(scaled_features)[0]
             prediction_proba = model.predict_proba(scaled_features)[0]
 
-            
             messages = {
                 0: "No heart disease detected",
                 1: "Stage 1 heart disease detected",
@@ -64,7 +61,6 @@ def predict():
             }
             prediction_message = messages.get(prediction, "Unknown prediction")
 
-           
             response = {
                 'prediction': prediction,
                 'prediction_probability': f"{max(prediction_proba) * 100:.2f}%",

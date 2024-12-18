@@ -3,98 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Зүрхний Өвчний Урьдчилсан Таамаглагч</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f3f4f6;
-      }
-      .container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        font-size: 24px;
-        color: #333;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        padding: 12px 15px;
-        text-align: left;
-      }
-      th {
-        background-color: #515552;
-        color: white;
-        font-weight: bold;
-      }
-      tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }
-      label {
-        font-weight: bold;
-      }
-      input {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-      }
-      .help-text {
-        font-size: 12px;
-        color: #666;
-        margin-top: 4px;
-      }
-      button {
-        width: 100%;
-        padding: 12px;
-        margin-top: 20px;
-        background-color: #515552;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      @media (max-width: 600px) {
-        table,
-        th,
-        td {
-          display: block;
-          width: 100%;
-        }
-        th,
-        td {
-          text-align: left;
-          padding: 10px;
-        }
-        button {
-          font-size: 14px;
-        }
-      }
-    </style>
+    <title>Эхлэл - Сонгодог Загварын Хуудас</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
   </head>
   <body>
+    <header>
+      <div class="container">
+        <h1>Зүрхний Өвчний Урьдчилан Таамаглах Апп</h1>
+      </div>
+    </header>
     <div class="container">
-      <h1>Зүрхний Өвчний Урьдчилсан Таамаглал</h1>
       <form action="{{ url_for('predict') }}" method="post">
         <table>
           <tr>
-            <th>Шинжилгээ</th>
-            <th>Үзүүлэлт</th>
+            <th>Тест</th>
+            <th>Утга</th>
           </tr>
           <tr>
             <td><label for="age">Нас:</label></td>
@@ -128,11 +54,11 @@
             <td><label for="cp">Цээжний Өвдөлтийн Төрөл:</label></td>
             <td>
               <input type="number" id="cp" name="cp" min="0" max="4" required />
-              <div class="help-text">0-4 (жишээ: 0 = Ердийн ангина)</div>
+              <div class="help-text">0-4 (жишээ нь, 0 = Ердийн ангина)</div>
             </td>
           </tr>
           <tr>
-            <td><label for="trestbps">Амрах үеийн цусны даралт:</label></td>
+            <td><label for="trestbps">Амралтын Цусны Даралт:</label></td>
             <td>
               <input
                 type="number"
@@ -145,7 +71,7 @@
             </td>
           </tr>
           <tr>
-            <td><label for="chol">Цусны сийвэн дэх холестерол:</label></td>
+            <td><label for="chol">Серум Холестерин:</label></td>
             <td>
               <input
                 type="number"
@@ -155,11 +81,11 @@
                 min="100"
                 max="600"
               />
-              <div class="help-text">Цусан дахь холестерин (mg/dl)</div>
+              <div class="help-text">Холестерин мг/дл</div>
             </td>
           </tr>
           <tr>
-            <td><label for="fbs">Өлөн цусны сахар:</label></td>
+            <td><label for="fbs">Өлөн Цусны Сахар:</label></td>
             <td>
               <input
                 type="number"
@@ -169,7 +95,7 @@
                 max="1"
                 required
               />
-              <div class="help-text">0 = Худал, 1 = Үнэн (> 120 mg/dl)</div>
+              <div class="help-text">0 = Худал, 1 = Үнэн (> 120 мг/дл)</div>
             </td>
           </tr>
           <tr>
@@ -183,11 +109,11 @@
                 max="2"
                 required
               />
-              <div class="help-text">Жишээ: 0 = Хэвийн</div>
+              <div class="help-text">жишээ нь, 0 = Хэвийн</div>
             </td>
           </tr>
           <tr>
-            <td><label for="thalach">Зүрхний Хамгийн Их Хэмнэл:</label></td>
+            <td><label for="thalach">Хамгийн Их Зүрхний Хэмнэл:</label></td>
             <td>
               <input
                 type="number"
@@ -200,7 +126,7 @@
             </td>
           </tr>
           <tr>
-            <td><label for="exang">Дасгалын Ангина:</label></td>
+            <td><label for="exang">Дасгалын Үед Өвдөлт:</label></td>
             <td>
               <input
                 type="number"
@@ -260,8 +186,11 @@
             </td>
           </tr>
         </table>
-        <button type="submit">Таамаглал Гаргах</button>
+        <button type="submit">Таамаглах</button>
       </form>
     </div>
+    <footer>
+      <p>Сонгодог Загвар &copy; 2024</p>
+    </footer>
   </body>
 </html>
