@@ -90,176 +90,126 @@
   <body>
     <div class="container">
       <h1>Зүрхний Өвчний Урьдчилсан Таамаглал</h1>
-      <form action="{{ url_for('predict') }}" method="post">
-        <table>
-          <tr>
-            <th>Шинжилгээ</th>
-            <th>Үзүүлэлт</th>
-          </tr>
-          <tr>
-            <td><label for="age">Нас:</label></td>
-            <td>
-              <input
-                type="number"
-                id="age"
-                name="age"
-                required
-                min="1"
-                max="120"
-              />
-              <div class="help-text">Насыг жилээр оруулна уу</div>
-            </td>
-          </tr>
-          <tr>
-            <td><label for="sex">Хүйс:</label></td>
-            <td>
-              <input
-                type="number"
-                id="sex"
-                name="sex"
-                min="0"
-                max="1"
-                required
-              />
-              <div class="help-text">0 = Эмэгтэй, 1 = Эрэгтэй</div>
-            </td>
-          </tr>
-          <tr>
-            <td><label for="cp">Цээжний Өвдөлтийн Төрөл:</label></td>
-            <td>
-              <input type="number" id="cp" name="cp" min="0" max="4" required />
-              <div class="help-text">0-4 (жишээ: 0 = Ердийн ангина)</div>
-            </td>
-          </tr>
-          <tr>
-            <td><label for="trestbps">Амрах үеийн цусны даралт:</label></td>
-            <td>
-              <input
-                type="number"
-                id="trestbps"
-                name="trestbps"
-                required
-                min="50"
-                max="300"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label for="chol">Цусны сийвэн дэх холестерол:</label></td>
-            <td>
-              <input
-                type="number"
-                id="chol"
-                name="chol"
-                required
-                min="100"
-                max="600"
-              />
-              <div class="help-text">Цусан дахь холестерин (mg/dl)</div>
-            </td>
-          </tr>
-          <tr>
-            <td><label for="fbs">Өлөн цусны сахар:</label></td>
-            <td>
-              <input
-                type="number"
-                id="fbs"
-                name="fbs"
-                min="0"
-                max="1"
-                required
-              />
-              <div class="help-text">0 = Худал, 1 = Үнэн (> 120 mg/dl)</div>
-            </td>
-          </tr>
-          <tr>
-            <td><label for="restecg">Амралтын ЭКГ:</label></td>
-            <td>
-              <input
-                type="number"
-                id="restecg"
-                name="restecg"
-                min="0"
-                max="2"
-                required
-              />
-              <div class="help-text">Жишээ: 0 = Хэвийн</div>
-            </td>
-          </tr>
-          <tr>
-            <td><label for="thalach">Зүрхний Хамгийн Их Хэмнэл:</label></td>
-            <td>
-              <input
-                type="number"
-                id="thalach"
-                name="thalach"
-                required
-                min="50"
-                max="250"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label for="exang">Дасгалын Ангина:</label></td>
-            <td>
-              <input
-                type="number"
-                id="exang"
-                name="exang"
-                min="0"
-                max="1"
-                required
-              />
-              <div class="help-text">0 = Үгүй, 1 = Тийм</div>
-            </td>
-          </tr>
-          <tr>
-            <td><label for="oldpeak">ST Депресс:</label></td>
-            <td>
-              <input
-                type="number"
-                id="oldpeak"
-                name="oldpeak"
-                step="0.1"
-                required
-                min="0"
-                max="10"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label for="slope">Налуу:</label></td>
-            <td>
-              <input
-                type="number"
-                id="slope"
-                name="slope"
-                min="0"
-                max="2"
-                required
-              />
-            </td>
-          </tr>
-          <tr>
-            <td><label for="ca">Судасны Тоо:</label></td>
-            <td>
-              <input type="number" id="ca" name="ca" min="0" max="3" required />
-            </td>
-          </tr>
-          <tr>
-            <td><label for="thal">Тал:</label></td>
-            <td>
-              <input
-                type="number"
-                id="thal"
-                name="thal"
-                min="0"
-                max="7"
-                required
-              />
-            </td>
-          </tr>
-        </table>
+      <form action="/predict " method="post">
+        <div class="form-group">
+          <label for="age">Нас:</label>
+          <input type="number" id="age" name="age" required min="1" max="120" />
+          <div class="help-text">Насыг жилээр оруулна уу</div>
+        </div>
+        <div class="form-group">
+          <label for="sex">Хүйс:</label>
+          <input type="number" id="sex" name="sex" min="0" max="1" required />
+          <div class="help-text">0 = Эмэгтэй, 1 = Эрэгтэй</div>
+        </div>
+        <div class="form-group">
+          <label for="cp">Цээжний Өвдөлтийн Төрөл:</label>
+          <input type="number" id="cp" name="cp" min="0" max="4" required />
+          <div class="help-text">
+            0-4 (0: Ердийн ангина, 1: Ердийн бус ангина, 2: Ангина бус өвдөлт,
+            3: Өвдөлтгүй)
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="trestbps">Амрах үеийн цусны даралт (мг/дл):</label>
+          <input
+            type="number"
+            id="trestbps"
+            name="trestbps"
+            required
+            min="50"
+            max="300"
+          />
+        </div>
+        <div class="form-group">
+          <label for="chol">Цусны сийвэн дэх холестеролын хэмжээ:</label>
+          <input
+            type="number"
+            id="chol"
+            name="chol"
+            required
+            min="100"
+            max="600"
+          />
+          <div class="help-text">Цусан дахь холестерин mg/dl</div>
+        </div>
+        <div class="form-group">
+          <label for="fbs">Өлөн Цусны Шинжилгээ:</label>
+          <input type="number" id="fbs" name="fbs" min="0" max="1" required />
+          <div class="help-text">0 = Худал, 1 = Үнэн (> 120 mg/dl)</div>
+        </div>
+        <div class="form-group">
+          <label for="restecg">Амралтын ЭКГ:</label>
+          <input
+            type="number"
+            id="restecg"
+            name="restecg"
+            min="0"
+            max="2"
+            required
+          />
+          <div class="help-text">
+            0: Хэвийн, 1: ST-T долгионы гажиг, 2: Зүүн ховдолын гипертрофи
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="thalach">Зүрхний Хамгийн Их Хэмнэл:</label>
+          <input
+            type="number"
+            id="thalach"
+            name="thalach"
+            required
+            min="50"
+            max="250"
+          />
+          <div class="help-text">Хамгийн их зүрхний хэмнэл</div>
+        </div>
+        <div class="form-group">
+          <label for="exang">Дасгалын Ангина:</label>
+          <input
+            type="number"
+            id="exang"
+            name="exang"
+            min="0"
+            max="1"
+            required
+          />
+          <div class="help-text">0 = Үгүй, 1 = Тийм</div>
+        </div>
+        <div class="form-group">
+          <label for="oldpeak">ST Депресс:</label>
+          <input
+            type="number"
+            id="oldpeak"
+            name="oldpeak"
+            step="0.1"
+            required
+            min="0"
+            max="10"
+          />
+          <div class="help-text">Дасгалын үеийн ST депресс</div>
+        </div>
+        <div class="form-group">
+          <label for="slope">Налуу:</label>
+          <input
+            type="number"
+            id="slope"
+            name="slope"
+            min="0"
+            max="2"
+            required
+          />
+          <div class="help-text">0: Дээшээ, 1: Тэгш, 2: Доошоо</div>
+        </div>
+        <div class="form-group">
+          <label for="ca">Судасны Тоо:</label>
+          <input type="number" id="ca" name="ca" min="0" max="3" required />
+          <div class="help-text">Флюроскопоор тодруулсан судасны тоо (0-3)</div>
+        </div>
+        <div class="form-group">
+          <label for="thal">Тал:</label>
+          <input type="number" id="thal" name="thal" min="0" max="7" required />
+          <div class="help-text">0-7: Талассемийн төрөл</div>
+        </div>
         <button type="submit">Таамаглал Гаргах</button>
       </form>
     </div>
